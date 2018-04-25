@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { User } from '../../model/user';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-main-content',
@@ -7,9 +11,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainContentComponent implements OnInit {
 
-  constructor() { }
+  user: User;
+  constructor(private route:ActivatedRoute, private service:UserService) {
+
+   }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+      this.user = this.service.userById(id);
+    })
+  
+  
   }
 
 }
